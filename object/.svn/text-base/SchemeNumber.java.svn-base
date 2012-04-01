@@ -1,0 +1,31 @@
+/*
+ * Copyright (c) 2004-2006 SchemeWay Project. All rights reserved.
+ */
+package org.scheme4edu.parser.object;
+
+import org.scheme4edu.parser.*;
+
+/**
+ * @author SchemeWay Project.
+ * 
+ */
+public class SchemeNumber implements Lexeme, Datum {
+
+	protected String content;
+
+	public SchemeNumber(String data) {
+		this.content = data;
+	}
+
+	public SchemeNumber(SchemeNumber n) {
+		this(n.content);
+	}
+
+	public String toString() {
+		return content;
+	}
+
+	public String type() {
+		return "Number";
+	}
+}

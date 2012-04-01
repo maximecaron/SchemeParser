@@ -1,0 +1,31 @@
+
+
+<datum> --> <simple datum> | <compound datum>
+<simple datum> --> <boolean> | <number>
+     | <character> | <string> |  <symbol>
+<symbol> --> <identifier>
+<compound datum> --> <list> | <vector>
+<list> --> (<datum>*) | (<datum>+ . <datum>)
+       | <abbreviation>
+<abbreviation> --> <abbrev prefix> <datum>
+<abbrev prefix> --> ' | ` | , | ,@
+<vector> --> #(<datum>*) 
+
+
+
+
+<expression> ::= <constant> | <identifier> |
+               <special form> | <procedure call>
+<constant> ::= <numeral> | <string> |
+             (quote <datum>) | '<datum> |
+             <boolean> | null
+
+
+
+
+
+
+
+
+
+

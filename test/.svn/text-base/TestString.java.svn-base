@@ -1,0 +1,27 @@
+package org.scheme4edu.parser.test;
+
+import org.junit.*;
+import org.scheme4edu.parser.*;
+
+public class TestString {
+	
+	@Test
+	public void test() {
+		SchemeScanner.datum().parse("\"\"");
+		SchemeScanner.datum().parse("\" \"");
+		SchemeScanner.datum().parse("\"ABC\"");
+		SchemeScanner.datum().parse("\"   AB    C   \"");
+		
+		SchemeScanner.datum().parse("\" \\x41;bc \"");
+		SchemeScanner.datum().parse("\" \\x41; bc \"");
+		SchemeScanner.datum().parse("\" \\a \"");
+		SchemeScanner.datum().parse("\" \\b \"");
+		SchemeScanner.datum().parse("\" \\t \"");
+		SchemeScanner.datum().parse("\" \\n \"");
+		SchemeScanner.datum().parse("\" \\v \"");
+		SchemeScanner.datum().parse("\" \\f \"");
+		SchemeScanner.datum().parse("\" \\r \"");
+		SchemeScanner.datum().parse("\" \\\" \"");
+		SchemeScanner.datum().parse("\" \\\\ \"");
+	}
+}

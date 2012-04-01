@@ -1,0 +1,28 @@
+package org.scheme4edu.parser.test;
+
+import org.junit.*;
+import org.scheme4edu.parser.*;
+
+// http://www.r6rs.org/final/html/r6rs/r6rs-Z-H-7.html#node_sec_4.3.2
+public class TestList {
+
+	@Test
+	public void badList() {
+		try {
+			SchemeScanner.datumFactory().parse("(");
+			org.junit.Assert.fail();
+		} catch (Exception e) {
+			// Good
+		}
+	}
+	
+	@Test
+	public void test() {
+		SchemeScanner.datumFactory().parse("()");
+		SchemeScanner.datumFactory().parse("(1 2 3)");
+		SchemeScanner.datumFactory().parse("((1) 2 3)");
+		SchemeScanner.datumFactory().parse("(1 (2) 3)");
+		SchemeScanner.datumFactory().parse("(1 2 (3))");
+		SchemeScanner.datumFactory().parse("(1 2 () 4 ((7) (8)) 99)");
+	}
+}

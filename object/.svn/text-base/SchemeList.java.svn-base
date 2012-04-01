@@ -1,0 +1,42 @@
+/*
+ * Copyright (c) 2004-2006 SchemeWay Project. All rights reserved.
+ */
+package org.scheme4edu.parser.object;
+
+import java.util.*;
+
+import org.codehaus.jparsec.*;
+import org.scheme4edu.parser.*;
+
+/**
+ * @author SchemeWay Project.
+ * 
+ */
+public class SchemeList implements Lexeme, Datum {
+
+	private List<Token> mylist = null;
+
+	public String type() {
+		return "schemeList";
+	}
+
+	public String toString() {
+		StringBuilder b = new StringBuilder();
+		b.append("(");
+		for (Token d : mylist) {
+			b.append(d.value().toString());
+			b.append("_");
+			b.append(String.valueOf(d.index()));
+			b.append(",");
+			b.append(d.length());
+			b.append("_");
+			b.append(" ");
+		}
+		b.append(")");
+		return b.toString();
+	}
+
+	public SchemeList(List<Token> data) {
+		this.mylist = data;
+	}
+}

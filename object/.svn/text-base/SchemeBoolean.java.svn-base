@@ -1,0 +1,23 @@
+/*
+ * Copyright (c) 2004-2006 SchemeWay Project. All rights reserved.
+ */
+package org.scheme4edu.parser.object;
+
+import org.scheme4edu.parser.*;
+
+/**
+ * @author SchemeWay Project.
+ *
+ */
+public class SchemeBoolean implements Lexeme, Datum {
+
+	protected String content;
+
+	public SchemeBoolean(String data) {
+		this.content = data;
+	}
+
+	public String type() {
+		return "boolean";
+	}
+}

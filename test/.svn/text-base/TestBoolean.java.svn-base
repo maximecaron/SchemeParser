@@ -1,0 +1,13 @@
+package org.scheme4edu.parser.test;
+
+import org.junit.*;
+import org.scheme4edu.parser.*;
+
+public class TestBoolean {
+
+	@Test
+	public void test() {
+		SchemeScanner.datum().parse("#t");
+		SchemeScanner.datum().parse("#f");
+	}
+}

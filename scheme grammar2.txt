@@ -1,0 +1,182 @@
+<program>		-->	<form>*
+<form>	  		-->	<definition> | <syntax definition> | <command>
+<definition>		-->	<variable definition> | (begin <form>*)
+<variable definition>	-->	(define <variable> <expression>)
+					| (define (<variable> <def formals>) <body>)
+					| (begin <variable definition>*)
+<syntax definition>	-->     (define-syntax <keyword> <transformer spec>)
+<def formals>		-->	<variable>*
+					| <variable>* . <variable>
+<command>		-->	<expression>
+<expression>		-->	<literal>
+					| <variable>
+					| <application>
+					| <lambda expression>
+					| <conditional>
+					| <assignment>
+<literal> 	     	-->	<constant> | <quotation>                              // self-evaluating
+<constant>		-->	<boolean> | <number> | <character> | <string> | null      // self-evaluating
+<quotation>		-->	'<datum> | (quote <datum>)
+<lambda expression>	-->	(lambda <formals> <body>)
+<conditional>		-->	(if <test> <consequent> <alternate>)
+<test>			-->	<expression>
+<consequent>		-->	<expression>
+<alternate>		-->	<expression> | <empty>
+<assignment>		-->	(set! <variable> <expression>)
+<application>		-->	(<expression> <expression>*)
+
+<formals>		-->	<variable>
+					| (<variable>*)
+					| (<variable>+ . <variable>)
+
+<body>			-->	<definition>* <sequence>
+<sequence>		-->	<command>* <expression>
+
+<derived expression>	--> 	(cond <cond clause>+)
+					| (cond <cond clause>* (else <sequence>))
+					| (case <expression> <case clause>+)
+					| (case <expression> <case clause>* (else <sequence>))
+					| (and <test>*)
+					| (or <test>*)
+					| (let <bindings> <body>)
+					| (let <variable> <bindings> <body>)
+					| (let* <bindings> <body>)
+                       		| (letrec <bindings> <body>)
+                        	| (begin <sequence>)
+                        	| (do (<iteration spec>*) (<test> <do result>) <command>*)
+                        	| (delay <expression>)
+                        	| <quasiquotation>
+
+<cond clause>		--> 	(<test> <sequence>)
+					| (<test>)
+					| (<test> => <recipient>)
+				
+<recipient>		-->	<expression>
+
+<case clause>		--> 	((<datum>*) <sequence>)
+
+<bindings>		-->	(<binding spec>*)
+<binding spec>		--> 	(<variable> <expression>)
+
+<iteration spec>	-->	(<variable> <init> <step>)
+					| (<variable> <init>)
+
+<init>			-->	<expression>
+<step>			-->	<expression>
+
+<do result>		-->	<sequence> | <empty>
+
+<macro use> 		-->	(<keyword> <datum>*)
+<keyword> 		-->	<identifier>
+<macro block> 		-->	(let-syntax (<syntax spec>*) <body<)
+					| (letrec-syntax (<syntax spec>*) <body>)
+<syntax spec>		-->	(<keyword> <transformer spec>)
+
+----------------------------------------------------------------------------------------------------
+
+
+
+
+
+
+
+
+
+
+
+
+
+<list>	-->	(<datum>*) | [<datum>*]
+|	(<datum>+ . <datum>) | [<datum>+ . <datum>]
+|	<abbreviation>
+<abbreviation>	 -->	' <datum> | ` <datum> | ,@ <datum> |, <datum>  
+|	#' <datum> | #` <datum> | #,@ <datum> | #, <datum> 
+
+
+
+'<datum>  (quote <datum>)
+`<datum>  (quasiquote <datum>)
+,<datum>  (unquote <datum>)
+,@<datum>  (unquote-splicing <datum>)
+#'<datum>  (syntax <datum>)
+#`<datum>  (quasisyntax <datum>)
+#,<datum>  (unsyntax <datum>)
+#,@<datum>  (unsyntax-splicing <datum>)
+
+
+
+<datum>	<list>
+
+	<boolean>
+|	<character>
+|	<symbol>
+|	<string>
+|	<number>
+|	<vector>
+|	<bytevector>
+
+
+
+
+
+
+
+parseDottedList = do
+    head <- endBy parseExpr spaces
+    tail <- char '.' >> spaces >> parseExpr
+    return $ DottedList head tail
+
+
+parseQuoted = do
+    char '\''
+    x <- parseExpr
+    return $ List [Atom "quote", x]
+
+
+parseExpr = parseAtom
+        <|> parseString
+        <|> parseNumber
+        <|> parseQuoted
+        <|> do char '('
+               x <- try parseList <|> parseDottedList
+               char ')'
+               return x
+
+
+
+
+
+
+<special form> ::= (<keyword> <syntactic component> ...)
+<syntactic keyword> --> <expression keyword>
+     | else | => | define 
+     | unquote | unquote-splicing
+
+<expression keyword> --> quote | lambda | if
+     | set! | begin | cond | and | or | case
+     | let | let* | letrec | do | delay
+     | quasiquote
+
+
+
+'<datum> for (quote <datum>), 
+`<datum> for (quasiquote <datum>), 
+,<datum> for (unquote <datum>), 
+,@<datum> for (unquote-splicing <datum>),
+
+
+###########################
+#  Scope constructor      #
+###########################
+(define <variable> <expression>)
+(define (<variable> <formals>) <body>)
+(lambda <formals> <body>)
+(let  <bindings> <body>)
+(let* <bindings> <body>)
+(letrec <bindings> <body>)
+
+
+
+
+
+

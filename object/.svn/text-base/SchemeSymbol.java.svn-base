@@ -1,0 +1,23 @@
+/*
+ * Copyright (c) 2004-2006 SchemeWay Project. All rights reserved.
+ */
+package org.scheme4edu.parser.object;
+
+import org.scheme4edu.parser.*;
+
+/**
+ * @author SchemeWay Project.
+ * 
+ */
+public class SchemeSymbol implements Lexeme, Datum {
+
+	protected String content;
+
+	public SchemeSymbol(String data) {
+		this.content = data;
+	}
+
+	public String type() {
+		return "Symbol";
+	}
+}

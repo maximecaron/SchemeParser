@@ -1,0 +1,32 @@
+package org.scheme4edu.parser.test;
+
+import org.junit.*;
+import org.scheme4edu.parser.*;
+
+public class TestCharacter {
+	
+	@Test
+	public void character() {
+		SchemeScanner.datum().parse("#\\a");
+		SchemeScanner.datum().parse("#\\A");
+		SchemeScanner.datum().parse("#\\(");
+		SchemeScanner.datum().parse("#\\)");
+		SchemeScanner.datum().parse("#\\ ");
+	}
+	
+	@Test
+	public void words() {
+		SchemeScanner.datum().parse("#\\nul");
+		SchemeScanner.datum().parse("#\\alarm");
+		SchemeScanner.datum().parse("#\\backspace");
+		SchemeScanner.datum().parse("#\\tab");
+		SchemeScanner.datum().parse("#\\linefeed");
+		SchemeScanner.datum().parse("#\\newline");
+		SchemeScanner.datum().parse("#\\vtab");
+		SchemeScanner.datum().parse("#\\page");
+		SchemeScanner.datum().parse("#\\return");
+		SchemeScanner.datum().parse("#\\esc");
+		SchemeScanner.datum().parse("#\\space");
+		SchemeScanner.datum().parse("#\\delete");
+	}
+}

@@ -1,0 +1,120 @@
+package org.scheme4edu.parser.test;
+
+import org.junit.*;
+import org.scheme4edu.parser.*;
+
+public class TestNumber {
+	
+	@Test
+	public void testBinaryFail(){
+		try{
+			SchemeScanner.datum().parse("#b10012");
+			org.junit.Assert.fail();
+		} catch(Exception e) {
+			// Good
+		}
+	}
+	
+	@Test
+	public void testOctalFail(){
+		try{
+			SchemeScanner.datum().parse("#o7509");
+			org.junit.Assert.fail();
+		} catch(Exception e) {
+			// Good
+		}
+	}
+	
+	@Test
+	public void testDecimalFail(){
+		try{
+			SchemeScanner.datum().parse("#d961A");
+			org.junit.Assert.fail();
+		} catch(Exception e) {
+			// Good
+		}
+	}
+	
+	@Test
+	public void testHexFail(){
+		try{
+			SchemeScanner.datum().parse("#xCAFEX");
+			org.junit.Assert.fail();
+		} catch(Exception e) {
+			// Good
+		}
+	}
+	
+	@Test
+	public void testBase2() {
+		SchemeScanner.datum().parse("#b1001");
+		SchemeScanner.datum().parse("#b#e1001");
+		SchemeScanner.datum().parse("#b#i1001");
+		SchemeScanner.datum().parse("#b+1001");
+		SchemeScanner.datum().parse("#b-1001");
+	}
+	
+	@Test
+	public void testBase8() {
+		SchemeScanner.datum().parse("#o741");
+		SchemeScanner.datum().parse("#o#e741");
+		SchemeScanner.datum().parse("#o#i741");
+		SchemeScanner.datum().parse("#o+741");
+		SchemeScanner.datum().parse("#o-741");
+	}
+	
+	@Test
+	public void testBase10() {
+		SchemeScanner.datum().parse("12");
+		SchemeScanner.datum().parse("12.0");
+		SchemeScanner.datum().parse("12.99584569437");
+		SchemeScanner.datum().parse("-12");
+		SchemeScanner.datum().parse("-12.0");
+		SchemeScanner.datum().parse("-12.48372573");
+		
+		SchemeScanner.datum().parse("#d-12");
+		SchemeScanner.datum().parse("#d#e3.2");
+		SchemeScanner.datum().parse("#d#i3.2");
+	}
+	
+	@Test
+	public void testBase10Scientific() {
+		SchemeScanner.datum().parse("12e2");
+		SchemeScanner.datum().parse("12e+2");
+		SchemeScanner.datum().parse("12e-2");
+		SchemeScanner.datum().parse("12.2e2");
+		SchemeScanner.datum().parse("12.2e+2");
+		SchemeScanner.datum().parse("12.2e-2");
+		SchemeScanner.datum().parse("-12e2");
+		SchemeScanner.datum().parse("-12e+2");
+		SchemeScanner.datum().parse("-12e-2");
+		SchemeScanner.datum().parse("-12.2e2");
+		SchemeScanner.datum().parse("-12.2e+2");
+		SchemeScanner.datum().parse("-12.2e-2");
+	}
+	
+	@Test
+	public void testBase10Long() {
+		SchemeScanner.datum().parse("12l2");
+		SchemeScanner.datum().parse("12l+2");
+		SchemeScanner.datum().parse("12l-2");
+		SchemeScanner.datum().parse("12.2l2");
+		SchemeScanner.datum().parse("12.2l+2");
+		SchemeScanner.datum().parse("12.2l-2");
+		SchemeScanner.datum().parse("-12l2");
+		SchemeScanner.datum().parse("-12l+2");
+		SchemeScanner.datum().parse("-12l-2");
+		SchemeScanner.datum().parse("-12.2l2");
+		SchemeScanner.datum().parse("-12.2l+2");
+		SchemeScanner.datum().parse("-12.2l-2");
+	}
+	
+	@Test
+	public void testBase16() {
+		SchemeScanner.datum().parse("#xF41");
+		SchemeScanner.datum().parse("#x#eF41");
+		SchemeScanner.datum().parse("#x#iF41");
+		SchemeScanner.datum().parse("#x+F41");
+		SchemeScanner.datum().parse("#x-F41");
+	}
+}
